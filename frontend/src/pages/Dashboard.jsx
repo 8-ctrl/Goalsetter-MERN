@@ -1,62 +1,68 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import GoalForm from '../components/GoalForm'
-import GoalItem from '../components/GoalItem'
-import Spinner from '../components/Spinner'
-import { getGoals, reset } from '../features/goals/goalSlice'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import GoalForm from "../components/GoalForm";
+import GoalItem from "../components/GoalItem";
+import Spinner from "../components/Spinner";
+import { getGoals, reset } from "../features/goals/goalSlice";
 
 function Dashboard() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.auth);
   const { goals, isLoading, isError, message } = useSelector(
     (state) => state.goals
-  )
+  );
 
   useEffect(() => {
     if (isError) {
-      console.log(message)
+      console.log(message);
     }
 
     if (!user) {
-      navigate('/login')
+      navigate("/login");
     }
 
-    dispatch(getGoals())
+    dispatch(getGoals());
 
     return () => {
-      dispatch(reset())
-    }
-  }, [user, navigate, isError, message, dispatch])
+      dispatch(reset());
+    };
+  }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (
-    <>
-      <section className='heading'>
-        <h1>Welcome {user && user.name}</h1>
-        <p>Goals Dashboard</p>
+    <div className="h-screen">
+    <div className="h-full bg-white dark:bg-slate-900 dark:text-white flex flex-col items-center">
+      <section className="flex flex-col py-20 items-center">
+        <h1 className="font-medium leading-tight text-5xl mt-0 mb-2">
+          Welcome {user && user.name}
+        </h1>
+        <p className="font-medium leading-tight text-3xl mb-2 mt-10">
+          Goals Dashboard
+        </p>
       </section>
 
       <GoalForm />
 
-      <section className='content'>
+      <section className="">
         {goals.length > 0 ? (
-          <div className='goals'>
+          <div className="flex flex-wrap gap-12 py-8 px-4 ">
             {goals.map((goal) => (
-              <GoalItem key={goal._id} goal={goal} />
+              <GoalItem className='py-5' key={goal._id} goal={goal} />
             ))}
           </div>
         ) : (
           <h3>You have not set any goals</h3>
         )}
       </section>
-    </>
-  )
+    </div>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

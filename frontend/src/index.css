@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @layer components{
-  .toggle {@apply w-9 h-9}
+  .toggle {@apply w-5 h-5}
+
+  .min-h-52{
+    min-height: 13rem;
+  }
 }
-
-
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 

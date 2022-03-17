@@ -14,14 +14,14 @@ function App() {
     <>
     <Router>
     <div className={`${darkMode ? 'dark': '' }`}>
-      
+    <div className='text-center w-full flex flex-col justify-center'>  
       <Header/>
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
       </Routes>
-      
+      </div>
     </div>
     </Router>
     <ToastContainer/>
